@@ -8,14 +8,15 @@ let score=0, lives=3, state="start", bgY=0, shield=false, shieldTimer=0;
 
 // 📂 Load assets
 function preload(){
-  bgImg = loadImage("background.jpg");
-shipImg = loadImage("spaceship.png");
-enemyImg = loadImage("enemy.png");
-lifeImg = loadImage("heart.png");
-shieldImg = loadImage("shield.png");
-shootSound = loadSound("laser.mp3");
-explosionSound = loadSound("explosion.mp3");
-bgMusic = loadSound("background.mp3");
+  bgImg=loadImage("background.jpg");
+  shipImg=loadImage("spaceship.png");
+  enemyImg=loadImage("enemy.png");
+  lifeImg=loadImage("heart.png");     // life powerup
+  shieldImg=loadImage("shield.png");  // shield powerup
+  soundFormats('mp3','wav');
+  shootSound=loadSound("laser.mp3");
+  explosionSound=loadSound("explosion.mp3");
+  bgMusic=loadSound("background.mp3");
 }
 
 // 🧩 Base class
@@ -64,7 +65,31 @@ class PowerUp extends Entity {
 }
 
 // ⚙️ Setup
-function setup(){ createCanvas(1500,700); reset(); }
+function setup(){ 
+  createCanvas(1500,700); 
+  reset();
+
+  // 📱 Mobile Controls (Buttons)
+  let leftBtn = createButton("⬅️");
+  leftBtn.position(50, height-100);
+  leftBtn.mousePressed(()=> player.x -= player.s);
+
+  let rightBtn = createButton("➡️");
+  rightBtn.position(120, height-100);
+  rightBtn.mousePressed(()=> player.x += player.s);
+
+  let upBtn = createButton("⬆️");
+  upBtn.position(85, height-150);
+  upBtn.mousePressed(()=> player.y -= player.s);
+
+  let downBtn = createButton("⬇️");
+  downBtn.position(85, height-50);
+  downBtn.mousePressed(()=> player.y += player.s);
+
+  let fireBtn = createButton("🔥 FIRE");
+  fireBtn.position(width-120, height-100);
+  fireBtn.mousePressed(()=> fire());
+}
 
 // 🎬 Main loop
 function draw(){
@@ -85,7 +110,7 @@ function draw(){
     if(millis()-shieldTimer>5000) shield=false;
   }
 
-  // Shooting
+  // Shooting (keyboard)
   if(keyIsDown(32)&&frameCount%10===0) fire();
 
   // Enemies
@@ -122,7 +147,7 @@ function draw(){
   text(`Lives:${lives}`,30,90);
 }
 
-// 🎮 Controls
+// 🎮 Controls (Keyboard)
 function keyPressed(){
   if(keyCode===ENTER){
     if(state==="start"){ state="playing"; if(!bgMusic.isPlaying()) bgMusic.loop(); }
