@@ -8,15 +8,15 @@ let score=0, lives=3, state="start", bgY=0, shield=false, shieldTimer=0;
 
 // 📂 Load assets
 function preload(){
-  bgImg=loadImage("assets/background.jpg");
-  shipImg=loadImage("assets/spaceship.png");
-  enemyImg=loadImage("assets/enemy.png");
-  lifeImg=loadImage("assets/heart.png");     // life powerup
-  shieldImg=loadImage("assets/shield.png");  // shield powerup
+  bgImg=loadImage("background.jpg");
+  shipImg=loadImage("spaceship.png");
+  enemyImg=loadImage("enemy.png");
+  lifeImg=loadImage("heart.png");     // life powerup
+  shieldImg=loadImage("shield.png");  // shield powerup
   soundFormats('mp3','wav');
-  shootSound=loadSound("assets/laser.mp3");
-  explosionSound=loadSound("assets/explosion.mp3");
-  bgMusic=loadSound("assets/background.mp3");
+  shootSound=loadSound("laser.mp3");
+  explosionSound=loadSound("explosion.mp3");
+  bgMusic=loadSound("background.mp3");
 }
 
 // 🧩 Base class
